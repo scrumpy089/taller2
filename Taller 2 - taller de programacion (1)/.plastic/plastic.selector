@@ -1,4 +1,0 @@
-repository "Taller 2 - taller de programacion@IntroduccionIDED2024@cloud"
-  path "/"
-    br "/main"
-    co "/main"

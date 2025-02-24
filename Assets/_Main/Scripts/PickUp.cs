@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
+    private TileMapChanger TileMapChanger;
+
+    void Start()
+    {
+        TileMapChanger = GetComponent<TileMapChanger>(); 
+    }
+
     public enum PickableType { heart, coin, evolution }
     public PickableType pickableType;
     //public Sprite evolvedSprite;
-    private bool isEvolved = false;
+    //private bool isEvolved = false;
+
+   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,6 +27,8 @@ public class PickUp : MonoBehaviour
             {
                 player1.health = 60.5f;
                 this.gameObject.SetActive(false);
+                TileMapChanger.SwitchTilemap(collision.gameObject);
+
             }
 
         }
@@ -26,8 +37,9 @@ public class PickUp : MonoBehaviour
             PlayerController2 player2 = collision.gameObject.GetComponent<PlayerController2>();
             if (player2 != null)
             {
-                player2.coins += 15;
+                player2.coins = 15;
                 this.gameObject.SetActive(false);
+                TileMapChanger.SwitchTilemap(collision.gameObject);
             }
         }
         else if (collision.gameObject.CompareTag("Player3") && pickableType == PickableType.evolution)
@@ -44,6 +56,7 @@ public class PickUp : MonoBehaviour
                     Debug.Log("Sprite changed and bool set to true...");
                 }*/
                 this.gameObject.SetActive(false);
+                TileMapChanger.SwitchTilemap(collision.gameObject);
             }
         }
     }

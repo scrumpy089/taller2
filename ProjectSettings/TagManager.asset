@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Player2
   - Player3
+  - Grid
+  - Grid 2
   layers:
   - Default
   - TransparentFX
