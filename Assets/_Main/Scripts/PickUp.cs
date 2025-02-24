@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    private TileMapChanger TileMapChanger;
-
-    void Start()
-    {
-        TileMapChanger = GetComponent<TileMapChanger>(); 
-    }
+    private TileMapChanger tileMapChanger;
 
     public enum PickableType { heart, coin, evolution }
     public PickableType pickableType;
     //public Sprite evolvedSprite;
     //private bool isEvolved = false;
 
-   
+    void Start()
+    {
+        tileMapChanger = FindObjectOfType<TileMapChanger>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -27,7 +25,7 @@ public class PickUp : MonoBehaviour
             {
                 player1.health = 60.5f;
                 this.gameObject.SetActive(false);
-                TileMapChanger.SwitchTilemap(collision.gameObject);
+                tileMapChanger.SwitchTilemap();
 
             }
 
@@ -39,7 +37,7 @@ public class PickUp : MonoBehaviour
             {
                 player2.coins = 15;
                 this.gameObject.SetActive(false);
-                TileMapChanger.SwitchTilemap(collision.gameObject);
+                tileMapChanger.SwitchTilemap();
             }
         }
         else if (collision.gameObject.CompareTag("Player3") && pickableType == PickableType.evolution)
@@ -48,7 +46,7 @@ public class PickUp : MonoBehaviour
             if (player3 != null)
             {
                 player3.evolution = true;
-                SpriteRenderer spriteRen = player3.GetComponent<SpriteRenderer>();
+                SpriteRenderer spriteRenderer = player3.GetComponent<SpriteRenderer>();
                 /*if (spriteRen != null && evolvedSprite != null)
                 {
                     spriteRen.sprite = evolvedSprite;
@@ -56,7 +54,7 @@ public class PickUp : MonoBehaviour
                     Debug.Log("Sprite changed and bool set to true...");
                 }*/
                 this.gameObject.SetActive(false);
-                TileMapChanger.SwitchTilemap(collision.gameObject);
+                tileMapChanger.SwitchTilemap();
             }
         }
     }
